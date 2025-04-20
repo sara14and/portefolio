@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+    margin: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .project {
+    background: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid #007bff;
+  }
+  
+  #loadMore {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  body {
+    font-family: sans-serif;
+    margin: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .project {
+    background: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid #007bff;
+  }
+  
+  #loadMore {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  
