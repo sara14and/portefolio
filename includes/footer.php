@@ -1,4 +1,7 @@
-<footer>
+<?php
+
+?>
+<footer class="footer">
   <hr>
-  <p>&copy; <?php echo date('Y'); ?> Mon Portefolio</p>
+  <p>&copy; <?= date('Y') ?> Sara Andari</p>
 </footer>
