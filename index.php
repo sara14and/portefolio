@@ -55,6 +55,9 @@ $projects = $db
       <h1><?= htmlspecialchars($t['welcome']) ?></h1>
       <p class="hero-subtitle"><?= htmlspecialchars($t['subtitle']) ?></p>
       <p><?= htmlspecialchars($t['hello']) ?></p>
+      <a class="btn-cv hero-cv" href="SaraAndariCV2025.pdf" download>
+      <?= htmlspecialchars($t['download_cv']) ?>
+      </a>
     </div>
     <div class="hero-right">
   <img id="memoji" src="assets/photos/memoji.png" alt="<?= htmlspecialchars($t['welcome']) ?>">

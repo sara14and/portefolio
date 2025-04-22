@@ -85,13 +85,13 @@ return [
       'items' => ['Anglais (natif)', 'Français (professionnel)', 'Krio (courant)', 'Arabe (conversationnel)'],
     ],
     [
-      'label' => 'Compétences humaines',
-      'items' => ['Adaptabilité', 'Esprit d’équipe', 'Souci du détail', 'Créatif', 'Détermination', 'Efficacité'],
+      'label' => 'Compétences non techniques',
+      'items' => ['Adaptabilité', 'Esprit d’équipe', 'Souci du détail', 'Créativité', 'Détermination', 'Efficacité'],
     ],
   ],
 
   // contact section
-  'contact_message' => 'Des questions ? Contactez‑moi !',
+  'contact_message' => 'Des questions? Contactez‑moi!',
 
   // contact form
   'form' => [

@@ -18,11 +18,9 @@
       <a href="#contact"><?= htmlspecialchars($t['nav']['contact']) ?></a>
     </nav>
 
-    <!-- right side: CV + theme toggle -->
+    <!-- right side: theme toggle -->
     <div class="nav-right">
-      <a class="btn-cv" href="SaraAndariCV2025.pdf" download>
-        <?= htmlspecialchars($t['download_cv']) ?>
-      </a>
+      
       <button id="theme-toggle"
               aria-label="<?= htmlspecialchars($t['theme_dark_label']) ?>">
       </button>
