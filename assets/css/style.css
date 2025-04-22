@@ -222,7 +222,7 @@
     display: block;
     border-radius: 0;
     cursor: pointer;
-    transition: transform 1s ease;
+    transition: transform 1 ease;
   }
   
   
@@ -235,6 +235,16 @@
     .hero-wrapper {
       flex-direction: column;
     }
+  }
+  
+  @keyframes spin {
+    0%   { transform: rotateY(0deg); }
+    50%  { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+  }
+  
+  #memoji.spin {
+    animation: spin 2s ease;
   }
   
   
@@ -418,17 +428,6 @@
     font-weight: 500;
   }
   
-  .form-message.success {
-    background: #d3f8d3;
-    color: #135c13;
-    border: 1px solid #76d576;
-  }
-  
-  .form-message.error {
-    background: #ffe3e3;
-    color: #a10000;
-    border: 1px solid #ffa0a0;
-  }
   
 /* search bar */
 #search-bar {
@@ -452,6 +451,7 @@
     box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
   }
   
+
   
   /* FOOTER */
   .footer {

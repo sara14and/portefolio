@@ -12,20 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // photo click = spin and swap image
-  const memoji = document.getElementById('memoji');
-  let flipped = false;
-
-  memoji.addEventListener('click', () => {
-    memoji.classList.add('spin');
-
-    setTimeout(() => {
-      flipped = !flipped;
-      memoji.src = flipped
-        ? 'assets/photos/memoji2.png'
-        : 'assets/photos/memoji.png';
-      memoji.classList.remove('spin');
-    }, );
-  });
+    const memoji = document.getElementById('memoji');
+    if (memoji) {
+      let flipped = false;
+      let spinning = false;
+    
+      memoji.addEventListener('click', () => {
+        if (spinning) return; // prevent stacking
+        spinning = true;
+    
+        memoji.classList.add('spin');
+    
+        setTimeout(() => {
+          flipped = !flipped;
+          memoji.src = flipped
+            ? 'assets/photos/memoji2.png'
+            : 'assets/photos/memoji.png';
+          memoji.classList.remove('spin');
+          spinning = false;
+        }, 1000); // match the duration of your CSS animation
+      });
+    }
+    
 
   
     // AJAX: project descriptions
