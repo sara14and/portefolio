@@ -69,10 +69,22 @@ $projects = $db
 
 <!-- global search bar -->
 <section id="search-bar">
-  <form method="GET" action="#projects">
-    <input type="text" name="q" id="globalSearch" placeholder="🔍 <?= htmlspecialchars($t['search_placeholder']) ?>" aria-label="Search">
+  <form id="searchForm" method="GET" action="" aria-label="Global search">
+    <label for="globalSearch" class="visually-hidden">Search the site</label>
+    <input
+      type="text"
+      name="q"
+      id="globalSearch"
+      value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
+      placeholder="Search for anything..."
+      aria-describedby="matchCount"
+      autocomplete="off"
+    >
+    <button type="button" id="resetSearch" aria-label="Reset search">×</button>
+    <span id="matchCount" class="match-count" aria-live="polite"></span>
   </form>
 </section>
+
 
 
   <!-- projects -->
@@ -140,42 +152,77 @@ $projects = $db
  <!-- contact -->
 <section id="contact" class="contact">
   <div class="section-wrapper contact-wrapper">
-    <h2><?=htmlspecialchars($t['nav']['contact'])?></h2>
-    <p class="contact-sub"><?=htmlspecialchars($t['contact_message'])?></p>
-
-    <form id="contactForm" action="#contact" method="POST" novalidate>
-      <label>
-        <?=htmlspecialchars($t['form']['name'])?>
-        <input type="text" name="name" required>
-      </label>
-      <label>
-        <?=htmlspecialchars($t['form']['email'])?>
-        <input type="email" name="email" required>
-      </label>
-      <label>
-        <?=htmlspecialchars($t['form']['message'])?>
-        <textarea name="message" required></textarea>
-      </label>
-      <button type="submit"><?=htmlspecialchars($t['form']['send'])?></button>
-    </form>
+    <h2><?= htmlspecialchars($t['nav']['contact']) ?></h2>
+    <p class="contact-sub"><?= htmlspecialchars($t['contact_message']) ?></p>
 
     <?php
+      // initialize vars
+      $name    = $_POST['name']    ?? '';
+      $email   = $_POST['email']   ?? '';
+      $message = $_POST['message'] ?? '';
+      $success = '';
+      $error   = '';
+
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $n = trim($_POST['name']    ?? '');
-        $e = trim($_POST['email']   ?? '');
-        $m = trim($_POST['message'] ?? '');
+        // trim & validate
+        $n = trim($name);
+        $e = trim($email);
+        $m = trim($message);
+
         if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
-          echo '<p class="success">Thank you, '.htmlspecialchars($n).'!</p>';
+          $msg = sprintf($t['contact_success'], htmlspecialchars($n));
+          echo '<p class="success">'.$msg.'</p>';
+          echo '<script>document.getElementById("contactForm").reset();</script>';
         } else {
-          echo '<p class="error">Please complete all fields correctly.</p>';
-        }
+          echo '<p class="error">'.htmlspecialchars($t['contact_error']).'</p>';
+        }        
       }
     ?>
+
+    <form
+      id="contactForm"
+      action="#contact"
+      method="POST"
+      novalidate
+    >
+      <label>
+        <?= htmlspecialchars($t['form']['name']) ?>
+        <input
+          type="text"
+          name="name"
+          required
+          value="<?= htmlspecialchars($name) ?>"
+        >
+      </label>
+
+      <label>
+        <?= htmlspecialchars($t['form']['email']) ?>
+        <input
+          type="email"
+          name="email"
+          required
+          value="<?= htmlspecialchars($email) ?>"
+        >
+      </label>
+
+      <label>
+        <?= htmlspecialchars($t['form']['message']) ?>
+        <textarea
+          name="message"
+          required
+        ><?= htmlspecialchars($message) ?></textarea>
+      </label>
+
+      <button type="submit">
+        <?= htmlspecialchars($t['form']['send']) ?>
+      </button>
+    </form>
+
+    <?php if ($success): ?>
+      <div class="form-message success"><?= $success ?></div>
+    <?php elseif ($error): ?>
+      <div class="form-message error"><?= $error ?></div>
+    <?php endif; ?>
+
   </div>
 </section>
-
-
-  <?php include __DIR__.'/includes/footer.php'; ?>
-  <script src="assets/js/script.js"></script>
-</body>
-</html>

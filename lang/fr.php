@@ -96,8 +96,10 @@ return [
   // contact form
   'form' => [
     'name'    => 'Nom',
-    'email'   => 'Courriel',
+    'email'   => 'Email',
     'message' => 'Message',
     'send'    => 'Envoyer',
   ],
+  'contact_success' => 'Merci, %s !',
+  'contact_error'   => 'Veuillez remplir tous les champs correctement.',
 ];

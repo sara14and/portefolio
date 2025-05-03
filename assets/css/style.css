@@ -155,6 +155,11 @@
   .social-fixed .icon:hover {
     transform: scale(1.2);
   }
+
+  .social-fixed {
+    z-index: 10;
+  }
+  
   
   /* sections and hero */
   section {
@@ -428,30 +433,89 @@
     font-weight: 500;
   }
   
-  
-/* search bar */
-#search-bar {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: var(--color-light);
-  }
-  
-  #search-bar input[type="text"] {
-    padding: 0.75rem 1.25rem;
-    width: 80%;
-    max-width: 500px;
-    font-size: 1.1rem;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    transition: box-shadow 0.3s;
-  }
-  
-  #search-bar input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
-  }
-  
 
+#globalSearch {
+  padding: 0.75rem 1.25rem;
+  width: 80%;
+  max-width: 500px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  transition: box-shadow 0.3s;
+}
+
+#globalSearch:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+}
+
+/* highlight */
+.highlight {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.active-highlight {
+  background-color: orange !important;
+}
+
+#search-bar {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--color-light);
+  position: relative;
+  z-index: 1;
+}
+
+#searchForm {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#globalSearch {
+  padding: 0.75rem 1.25rem;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 500px;
+}
+
+#resetSearch {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.match-count {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-base);
+}
+
+/* Highlight style for both modes */
+.highlight {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+body.dark .highlight {
+  background-color: #f5e663;
+  color: #000;
+}
+
+  
   
   /* FOOTER */
   .footer {
@@ -460,3 +524,4 @@
     color: #555;
   }
   
+ 

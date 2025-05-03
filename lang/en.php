@@ -101,4 +101,6 @@ return [
     'message' => 'Message',
     'send'    => 'Send',
   ],
+  'contact_success' => 'Thank you, %s!',
+  'contact_error'   => 'Please complete all fields correctly.',
 ];
