@@ -53,28 +53,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function highlightMatches(term) {
     clearHighlights();
     if (!term) return;
-
+  
     const regex = new RegExp(`(${term})`, 'gi');
-    // only replace inside these text-containing elements
-    document.querySelectorAll('h2, h3, p, li').forEach(el => {
-      if (regex.test(el.textContent)) {
-        el.innerHTML = el.textContent.replace(
-          regex,
-          '<span class="highlight" aria-label="search match">$1</span>'
-        );
-      }
-    });
-
+    document.querySelectorAll('h2, h3, p, li')
+      .forEach(el => {
+        if (regex.test(el.textContent)) {
+          el.innerHTML = el.textContent.replace(
+            regex,
+            '<span class="highlight">$1</span>'
+          );
+        }
+      });
+  
     matches = Array.from(document.querySelectorAll('.highlight'));
     if (matches.length) {
       matchIndex = 0;
       matches[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      matchInfo.textContent = 
-        `${matches.length} match${matches.length > 1 ? 'es' : ''} found`;
+  
+      // singular / plural
+      if (matches.length === 1) {
+        matchInfo.textContent = i18n.match_one.replace("{count}", "1");
+      } else {
+        matchInfo.textContent = i18n.match_other.replace("{count}", matches.length);
+      }
     } else {
-      matchInfo.textContent = 'No results found';
+      matchInfo.textContent = i18n.no_results;
     }
-  }
+  }  
+  
 
   // on load, if ?q=… present, apply
   const params = new URLSearchParams(window.location.search);

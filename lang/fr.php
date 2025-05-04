@@ -4,7 +4,7 @@ return [
   // Hero
   'welcome'           => 'Sara Andari',
   'subtitle'          => 'Étudiante en génie informatique',
-  'hello'             => 'Salut ! Bienvenue sur mon portfolio.',
+  'hello'             => 'Salut! Bienvenue sur mon portfolio.',
 
   // Navbar
   'nav' => [
@@ -19,9 +19,11 @@ return [
   'download_cv'       => 'Télécharger mon CV',
 
   // search bar 
-  'search_placeholder' => 'Rechercher projets, compétences, expérience...',
+  'search_placeholder' => 'Rechercher...',
   'reset_label' => 'Réinitialiser la recherche',
-  'no_results'  => 'Aucun résultat trouvé',
+  'no_results'  => 'Aucun résultat trouvé.',
+  'match_one'   => '{count} résultat trouvé.',
+  'match_other' => '{count} résultats trouvés.',
 
   // AJAX button labels
   'view_desc'         => 'Voir la description',
@@ -36,7 +38,7 @@ return [
   'experience_data' => [
     'atlas' => [
       'role'    => 'Stagiaire support technique',
-      'company' => 'Atlas Copco Compressors Canada — Montréal (QC)',
+      'company' => 'Atlas Copco Compressors Canada',
       'points'  => [
         'Résolution de tickets de support technique de niveau 1, y compris demandes de pièces spéciales et listes de service.',
         'Collaboration avec les équipes de service pour les réclamations sous garantie et suivi des bulletins de modification d’ingénierie (ECB).',
@@ -45,7 +47,7 @@ return [
     ],
     'asda' => [
       'role'    => 'Stagiaire R&D',
-      'company' => 'Applied Systems Design & Analysis (ASDA) Inc. — Montréal (QC)',
+      'company' => 'Applied Systems Design & Analysis (ASDA) Inc.',
       'points'  => [
         'Analyse de pré‑faisabilité et conception de l’Energy Calculator via Excel, HTML, CODERS DB et SPINE.',
         'Recherche approfondie et propositions d’architecture pour l’outil.',
@@ -54,7 +56,7 @@ return [
     ],
     'factory' => [
       'role'    => 'Directrice générale & Responsable communication',
-      'company' => 'The Factory – Hardware Design Lab — Montréal (QC)',
+      'company' => 'The Factory - Hardware Design Lab',
       'points'  => [
         'Organisation et promotion d’ateliers et de hackathons.',
         'Gestion des réseaux sociaux et création de supports marketing.',
@@ -84,7 +86,7 @@ return [
     ],
     [
       'label' => 'Langues parlées',
-      'items' => ['Anglais (natif)', 'Français (professionnel)', 'Krio (courant)', 'Arabe (conversationnel)'],
+      'items' => ['Anglais', 'Français', 'Krio', 'Arabe'],
     ],
     [
       'label' => 'Compétences non techniques',

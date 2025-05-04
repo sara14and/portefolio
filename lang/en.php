@@ -20,9 +20,11 @@ return [
 
 
   // search bar 
-  'search_placeholder' => 'Search projects, skills, experience...',
+  'search_placeholder' => 'Search...',
   'reset_label' => 'Reset search',
   'no_results'   => 'No results found.',
+  'match_one'   => '{count} match found.',
+  'match_other' => '{count} matches found.',
 
   // AJAX button labels
   'view_desc'         => 'View description',
@@ -55,7 +57,7 @@ return [
     ],
     'factory' => [
       'role'    => 'General Manager & Communications Lead',
-      'company' => 'The Factory – Hardware Design Lab',
+      'company' => 'The Factory - Hardware Design Lab',
       'points'  => [
         'Coordinated and promoted events such as workshops and hackathons.',
         'Managed social media and created marketing materials.',
@@ -84,8 +86,8 @@ return [
       'items' => ['Soldering', '3D Printing', 'PCB milling', 'Raspberry Pi'],
     ],
     [
-      'label' => 'Languages (spoken)',
-      'items' => ['English (native)', 'French (professional)', 'Krio (fluent)', 'Arabic (conversational)'],
+      'label' => 'Languages',
+      'items' => ['English', 'French', 'Krio', 'Arabic'],
     ],
     [
       'label' => 'Soft Skills',

@@ -84,7 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     theme_light_label:"<?= addslashes($t['theme_light_label']) ?>",
     name_req:    "<?= addslashes($t['form']['name_req']) ?>",
     email_req:   "<?= addslashes($t['form']['email_req']) ?>",
-    message_req: "<?= addslashes($t['form']['message_req']) ?>"
+    message_req: "<?= addslashes($t['form']['message_req']) ?>",
+    no_results:   "<?= addslashes($t['no_results']) ?>",
+    match_one:    "<?= addslashes($t['match_one']) ?>",
+    match_other:  "<?= addslashes($t['match_other']) ?>",
   };
 </script>
 </head>
