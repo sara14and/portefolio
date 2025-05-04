@@ -3,10 +3,10 @@ require_once __DIR__ . '/../db/database.php';
 
 $db = Database::getInstance();
 
-// DROP old table if it exists — ensures clean structure
 $db->exec("DROP TABLE IF EXISTS projects");
+$db->exec("DROP TABLE IF EXISTS contacts");
 
-// create table with multilingual support
+// table for projects
 $db->exec("
     CREATE TABLE projects (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,6 +15,17 @@ $db->exec("
         description_en TEXT NOT NULL,
         description_fr TEXT NOT NULL,
         link TEXT NOT NULL
+    )
+");
+
+// table for contacts
+$db->exec("
+    CREATE TABLE IF NOT EXISTS contacts (
+        id           INTEGER PRIMARY KEY AUTOINCREMENT,
+        name         TEXT    NOT NULL,
+        email        TEXT    NOT NULL,
+        message      TEXT    NOT NULL,
+        submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
 ");
 

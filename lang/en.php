@@ -1,12 +1,12 @@
 <?php
 // lang/en.php
 return [
-  // Hero
+  // hero
   'welcome'           => 'Sara Andari',
   'subtitle'          => 'Computer Engineering Student',
   'hello'             => 'Hey there! Welcome to my portfolio.',
 
-  // Navbar
+  // navbar
   'nav' => [
     'home'       => 'Home',
     'projects'   => 'Projects',
@@ -25,6 +25,8 @@ return [
   'no_results'   => 'No results found.',
   'match_one'   => '{count} match found.',
   'match_other' => '{count} matches found.',
+  'reset_search'       => 'Reset search',
+  'search_empty'       => 'Please enter a search term.',
 
   // AJAX button labels
   'view_desc'         => 'View description',

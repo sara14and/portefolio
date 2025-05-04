@@ -1,6 +1,6 @@
 // assets/js/script.js
 document.addEventListener('DOMContentLoaded', () => {
-  // === THEME TOGGLE ===
+  // theme toggle
   const toggle = document.getElementById('theme-toggle');
   toggle.addEventListener('click', () => {
     document.body.classList.toggle('dark');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // === MOBILE MENU TOGGLE ===
+  // mobile menu toggle
   const menuToggle = document.getElementById('menu-toggle');
   const siteHeader = document.querySelector('.site-header');
   if (menuToggle && siteHeader) {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // === SEARCH FUNCTIONALITY ===
+  // =search functionality 
   const searchForm  = document.getElementById('searchForm');
   const searchInput = document.getElementById('globalSearch');
   const matchInfo   = document.getElementById('matchInfo');
@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }  
   
 
-  // on load, if ?q=… present, apply
   const params = new URLSearchParams(window.location.search);
   const term   = params.get('q');
   if (term) {
@@ -92,17 +91,22 @@ document.addEventListener('DOMContentLoaded', () => {
   searchForm.addEventListener('submit', e => {
     e.preventDefault();
     const value = searchInput.value.trim();
+  
     if (!value) {
-      alert(i18n.search_empty);
+      matchInfo.textContent = i18n.search_empty;
+      matchInfo.classList.add('error-msg');
+      searchInput.focus();
       return;
     }
+  
     const url = new URL(window.location);
     url.searchParams.set('q', value);
     window.history.replaceState({}, '', url);
     highlightMatches(value);
   });
+  
 
-  // cycle to next match on Enter
+  // cycle to next match on enter
   searchInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && matches.length > 1) {
       e.preventDefault();
@@ -122,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 
-  // === AJAX: Projects ===
+  // AJAX projects
   document.querySelectorAll('.btn-view-desc').forEach(btn => {
     btn.addEventListener('click', async () => {
       const card = btn.closest('.card');
@@ -151,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // === AJAX: Experience ===
+  // AJAX experience 
   document.querySelectorAll('.btn-view-desc-exp').forEach(btn => {
     btn.addEventListener('click', async () => {
       const card = btn.closest('.card');
@@ -180,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // === JS FORM VALIDATION (Contact) ===
+  // JS form validation (contact) 
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
@@ -205,19 +209,19 @@ if (form) {
     const emailEl   = form.elements['email'];
     const messageEl = form.elements['message'];
 
-    // Validate name
+    // validate name
     if (!nameEl.value.trim()) {
       showError(nameEl, i18n.name_req);
     }
 
-    // Validate email
+    // validate email
     const emailVal = emailEl.value.trim();
     const emailRx  = /^\S+@\S+\.\S+$/;
     if (!emailVal || !emailRx.test(emailVal)) {
       showError(emailEl, i18n.email_req);
     }
 
-    // Validate message
+    // validate message
     if (!messageEl.value.trim()) {
       showError(messageEl, i18n.message_req);
     }

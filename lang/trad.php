@@ -1,7 +1,7 @@
 <?php
 // lang/trad.php
-// load the users chosen language (cookie) or default to English
-$lang = $_COOKIE['lang'] ?? 'en';
+// load users chosen language (cookie) or default to French
+$lang = $_COOKIE['lang'] ?? 'fr';
 if (! in_array($lang, ['en','fr'])) {
   $lang = 'en';
 }

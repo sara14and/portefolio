@@ -1,16 +1,16 @@
 <?php
-// read requested language and default to 'en'
-$lang = $_GET['lang'] ?? 'en';
+// read requested language and default to french
+$lang = $_GET['lang'] ?? 'fr';
 
 // only accept 'fr' or 'en'
 if (! in_array($lang, ['fr','en'])) {
     $lang = 'fr';
 }
 
-// set a cookie for one year
+// set cookie for one year
 setcookie('lang', $lang, time() + 365*24*3600, '/');
 
-// redirect back to the referrer 
+// redirect back to referrer 
 $redirect = $_SERVER['HTTP_REFERER'] ?? 'index.php';
 header("Location: $redirect");
 exit;

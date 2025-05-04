@@ -1,17 +1,17 @@
 <?php
 // index.php
 
-// 1) load translations
+// load translations
 require_once __DIR__ . '/lang/trad.php';
 
-// 2) load DB & fetch projects
+// load db and fetch projects
 require_once __DIR__ . '/db/database.php';
 $db           = Database::getInstance();
 $allProjects  = $db
   ->query("SELECT * FROM projects ORDER BY id ASC")
   ->fetchAll(PDO::FETCH_ASSOC);
 
-// 3) handle GET “q” to filter by title
+// handle GET “q” to filter by title
 $search    = trim($_GET['q'] ?? '');
 $projects  = $allProjects;
 $noResults = false;
@@ -25,7 +25,7 @@ if ($search !== '') {
   }
 }
 
-// 4) prepare contact form defaults
+// prepare contact form defaults
 $name    = $_POST['name']    ?? '';
 $email   = $_POST['email']   ?? '';
 $message = $_POST['message'] ?? '';
@@ -39,19 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $m = trim($message);
 
   if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
-    // 1) show the success message
+    // show the success message
     $success = sprintf(
       $t['contact_success'] ?? 'Thank you, %s!',
       htmlspecialchars($n)
     );
 
-    // 2) persist into SQLite
+    // into SQLite
     $stmt = $db->prepare(
       'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)'
     );
     $stmt->execute([$n, $e, $m]);
 
-    // 3) clear form fields
+    // clear form fields
     $name = $email = $message = '';
 } else {
     $error = $t['contact_error'] ?? 'Please complete all fields correctly.';
@@ -88,12 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     no_results:   "<?= addslashes($t['no_results']) ?>",
     match_one:    "<?= addslashes($t['match_one']) ?>",
     match_other:  "<?= addslashes($t['match_other']) ?>",
+    search_empty:     "<?= addslashes($t['search_empty']) ?>",
+    reset_search:     "<?= addslashes($t['reset_search']) ?>",
   };
 </script>
 </head>
 <body>
 
-  <!-- fixed header/nav -->
+  <!-- header/nav -->
   <?php include __DIR__ . '/includes/header.php'; ?>
 
   <!-- social sidebar -->
@@ -126,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </section>
 
-    <!-- global search bar (GET methd) -->
+    <!-- global search bar (GET method) -->
     <section id="search-bar">
     <form id="searchForm" method="GET" action="" aria-label="Global search">
       <input
@@ -212,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </section>
 
-  <!-- contact (post) -->
+  <!-- contact (POST nethod) -->
   <section id="contact" class="contact">
     <div class="section-wrapper contact-wrapper">
       <h2><?= htmlspecialchars($t['nav']['contact']) ?></h2>

@@ -5,7 +5,7 @@ class Database {
 
     private function __construct() {
         try {
-            // on pointe vers le fichier SQLite
+            // pointing towards SQLite file
             $this->pdo = new PDO("sqlite:" . __DIR__ . "/portfolio.db");
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {

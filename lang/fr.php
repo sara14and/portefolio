@@ -1,12 +1,12 @@
 <?php
 // lang/fr.php
 return [
-  // Hero
+  // hero
   'welcome'           => 'Sara Andari',
   'subtitle'          => 'Étudiante en génie informatique',
   'hello'             => 'Salut! Bienvenue sur mon portfolio.',
 
-  // Navbar
+  // navbar
   'nav' => [
     'home'       => 'Accueil',
     'projects'   => 'Projets',
@@ -24,6 +24,8 @@ return [
   'no_results'  => 'Aucun résultat trouvé.',
   'match_one'   => '{count} résultat trouvé.',
   'match_other' => '{count} résultats trouvés.',
+  'reset_search'       => 'Réinitialiser la recherche',
+  'search_empty'       => 'Veuillez entrer un terme de recherche.',
 
   // AJAX button labels
   'view_desc'         => 'Voir la description',
