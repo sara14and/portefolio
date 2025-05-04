@@ -29,6 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // === MOBILE MENU TOGGLE ===
+  const menuToggle = document.getElementById('menu-toggle');
+  const siteHeader = document.querySelector('.site-header');
+  if (menuToggle && siteHeader) {
+    menuToggle.addEventListener('click', () => {
+      siteHeader.classList.toggle('nav-open');
+    });
+  }
+
+  
+
   // === SEARCH FUNCTIONALITY ===
   const searchForm  = document.getElementById('searchForm');
   const searchInput = document.getElementById('globalSearch');
