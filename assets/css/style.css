@@ -110,6 +110,11 @@
     align-items: center;
     gap: 1rem;
   }
+
+  /* hide hamburger in desktop view */
+  #menu-toggle {
+    display: none;
+  }
   
   
   /* CV button */
@@ -537,55 +542,73 @@ body.dark .highlight {
     color: #555;
   }
   
- /* RESPONSIVENESS ENHANCEMENTS */
+ /* responsive */
 
-/* fluid images */
-img {
-  max-width: 100%;
-  height: auto;
+ .main-nav {
+  flex-wrap: nowrap;       
 }
 
-/* smaller font & gap on very narrow screens */
-@media (max-width: 667px) {
+ /* hide hamburger on desktops/tablets */
+#menu-toggle {
+  display: none;
+}
+
+/* on real phones/ipads (device-width ≤ 932px) show hamburger, hide nav */
+@media only screen and (max-device-width: 932px) {
+  /* hide the desktop nav */
   .main-nav {
-    gap: 1rem;
+    display: none !important;
   }
-  .main-nav a {
-    font-size: 0.9rem;
-  }
-}
 
-/* single-column cards at ≤667px */
-@media (max-width: 667px) {
-  .projects-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* skills grid adjustments */
-@media (max-width: 900px) {
-  #skills .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-@media (max-width: 500px) {
-  #skills .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* hero stacking at ≤700px */
-@media (max-width: 700px) {
-  .hero-wrapper {
+  /* show & style the hamburger */
+  #menu-toggle {
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    justify-content: space-between;
+    width: 24px;
+    height: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  #menu-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--color-base);
+    border-radius: 1px;
   }
 }
 
-/* contact form full-width at ≤480px */
-@media (max-width: 480px) {
-  .contact form {
-    width: 100%;
-    padding: 0 1rem;
+/* drop down vertical menu */
+.site-header.nav-open .main-nav {
+  display: flex;
+  flex-direction: column;
+  transform: none !important;
+  left: 0;
+  right: 0;
+  top: 100%;
+  position: absolute;
+  background: var(--color-bg);
+  padding: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  justify-content: flex-start;
+}
+.site-header.nav-open .main-nav a {
+  padding: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+/* stack “compétences" into one column */
+@media only screen and (max-device-width: 767px) {
+  #skills .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
   }
+}
+
+/* clip any accidental horizontal overflow */
+html, body {
+  overflow-x: hidden;
 }

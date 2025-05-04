@@ -20,7 +20,12 @@
 
     <!-- right side: theme toggle -->
     <div class="nav-right">
-      
+    <button id="menu-toggle" aria-label="Ouvrir le menu">
+    <!-- simple hamburger icon: -->
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+    </button>
       <button id="theme-toggle"
               aria-label="<?= htmlspecialchars($t['theme_dark_label']) ?>">
       </button>

@@ -192,4 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(error);
     }
   });
+  const header = document.querySelector('.site-header');
+const btn    = document.getElementById('menu-toggle');
+
+btn.addEventListener('click', () => {
+  header.classList.toggle('nav-open');
+});
 });
