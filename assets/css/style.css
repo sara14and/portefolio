@@ -583,7 +583,7 @@ body.dark .highlight {
 
 /* drop down vertical menu */
 .site-header.nav-open .main-nav {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   transform: none !important;
   left: 0;
