@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let   matchIndex  = 0;
   let   matches     = [];
 
+  function clearQueryParam() {
+    const url = new URL(window.location);
+    url.searchParams.delete('q');
+    window.history.replaceState({}, '', url);
+  }
+
   function clearHighlights() {
     document.querySelectorAll('.highlight').forEach(span => {
       const parent = span.parentNode;
@@ -79,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       matchInfo.textContent = i18n.no_results;
     }
+    clearQueryParam();
   }  
   
 
