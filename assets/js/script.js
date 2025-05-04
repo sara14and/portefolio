@@ -176,26 +176,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // === JS FORM VALIDATION (Contact) ===
-  const form = document.getElementById('contactForm');
+const form = document.getElementById('contactForm');
+if (form) {
   form.addEventListener('submit', e => {
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
+        e.preventDefault();
+    let valid = true;
 
-    let error = '';
-    if (!name) error = 'Name is required.';
-    else if (!email || !/^\S+@\S+\.\S+$/.test(email)) error = 'Valid email is required.';
-    else if (!message) error = 'Message is required.';
+    // clear previous errors
+    form.querySelectorAll('input, textarea').forEach(el => {
+      el.classList.remove('error');
+    });
+    form.querySelectorAll('.error-msg').forEach(span => {
+      span.textContent = '';
+    });
 
-    if (error) {
-      e.preventDefault();
-      alert(error);
+    function showError(el, msg) {
+      el.classList.add('error');
+      el.parentNode.querySelector('.error-msg').textContent = msg;
+      valid = false;
+    }
+
+    const nameEl    = form.elements['name'];
+    const emailEl   = form.elements['email'];
+    const messageEl = form.elements['message'];
+
+    // Validate name
+    if (!nameEl.value.trim()) {
+      showError(nameEl, i18n.name_req);
+    }
+
+    // Validate email
+    const emailVal = emailEl.value.trim();
+    const emailRx  = /^\S+@\S+\.\S+$/;
+    if (!emailVal || !emailRx.test(emailVal)) {
+      showError(emailEl, i18n.email_req);
+    }
+
+    // Validate message
+    if (!messageEl.value.trim()) {
+      showError(messageEl, i18n.message_req);
+    }
+
+    if (valid) {
+      form.submit();
+    } else {
+      form.querySelector('.error').focus();
     }
   });
-  const header = document.querySelector('.site-header');
-const btn    = document.getElementById('menu-toggle');
+}
 
-btn.addEventListener('click', () => {
-  header.classList.toggle('nav-open');
-});
 });

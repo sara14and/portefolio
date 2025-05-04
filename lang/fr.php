@@ -105,6 +105,6 @@ return [
   'email_req'   => 'Email invalide.',
   'message_req' => 'Le message est requis.',
   ],
-  'contact_success' => 'Merci, %s !',
+  'contact_success' => 'Merci, %s!',
   'contact_error'   => 'Veuillez remplir tous les champs correctement.',
 ];

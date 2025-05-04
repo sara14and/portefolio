@@ -39,15 +39,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $m = trim($message);
 
   if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
+    // 1) show the success message
     $success = sprintf(
       $t['contact_success'] ?? 'Thank you, %s!',
       htmlspecialchars($n)
     );
-    // clear fields after success
+
+    // 2) persist into SQLite
+    $stmt = $db->prepare(
+      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)'
+    );
+    $stmt->execute([$n, $e, $m]);
+
+    // 3) clear form fields
     $name = $email = $message = '';
-  } else {
+} else {
     $error = $t['contact_error'] ?? 'Please complete all fields correctly.';
-  }
+}
+
   
   $search    = '';
   $projects  = $allProjects;
@@ -67,14 +76,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
     // labels for JS validation
-    const i18n = {
-      
-      view_desc: "<?= addslashes($t['view_desc']) ?>",
-      hide_desc: "<?= addslashes($t['hide_desc']) ?>",
-      loading:   "<?= addslashes($t['loading']) ?>"
-    
-    };
-  </script>
+  const i18n = {
+    view_desc:   "<?= addslashes($t['view_desc']) ?>",
+    hide_desc:   "<?= addslashes($t['hide_desc']) ?>",
+    loading:     "<?= addslashes($t['loading']) ?>",
+    theme_dark_label: "<?= addslashes($t['theme_dark_label']) ?>",
+    theme_light_label:"<?= addslashes($t['theme_light_label']) ?>",
+    name_req:    "<?= addslashes($t['form']['name_req']) ?>",
+    email_req:   "<?= addslashes($t['form']['email_req']) ?>",
+    message_req: "<?= addslashes($t['form']['message_req']) ?>"
+  };
+</script>
 </head>
 <body>
 
@@ -210,37 +222,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endif; ?>
 
       <form id="contactForm" action="#contact" method="POST" novalidate>
-        <label>
-          <?= htmlspecialchars($t['form']['name']) ?>
-          <input
-            type="text"
-            name="name"
-            required
-            value="<?= htmlspecialchars($name) ?>"
-          >
-        </label>
+  <div class="field">
+    <label for="name"><?= htmlspecialchars($t['form']['name']) ?></label>
+    <input id="name" type="text" name="name" value="<?= htmlspecialchars($name) ?>">
+    <span class="error-msg"></span>
+  </div>
 
-        <label>
-          <?= htmlspecialchars($t['form']['email']) ?>
-          <input
-            type="email"
-            name="email"
-            required
-            value="<?= htmlspecialchars($email) ?>"
-          >
-        </label>
+  <div class="field">
+    <label for="email"><?= htmlspecialchars($t['form']['email']) ?></label>
+    <input id="email" type="email" name="email" value="<?= htmlspecialchars($email) ?>">
+    <span class="error-msg"></span>
+  </div>
 
-        <label>
-          <?= htmlspecialchars($t['form']['message']) ?>
-          <textarea name="message" required><?= htmlspecialchars($message) ?></textarea>
-        </label>
+  <div class="field">
+    <label for="message"><?= htmlspecialchars($t['form']['message']) ?></label>
+    <textarea id="message" name="message"><?= htmlspecialchars($message) ?></textarea>
+    <span class="error-msg"></span>
+  </div>
 
-        <button type="submit">
-          <?= htmlspecialchars($t['form']['send']) ?>
-        </button>
-      </form>
-    </div>
-  </section>
+  <button type="submit"><?= htmlspecialchars($t['form']['send']) ?></button>
+</form>
+
 
   <?php include __DIR__.'/includes/footer.php'; ?>
   <script src="assets/js/script.js"></script>

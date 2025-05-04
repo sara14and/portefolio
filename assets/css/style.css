@@ -450,6 +450,30 @@
     border-radius: 6px;
     font-weight: 500;
   }
+
+  /* Contact form error styling */
+.field {
+  margin-bottom: 1rem;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.field input.error,
+.field textarea.error {
+  border-color: #e74c3c;
+}
+.error-msg {
+  display: block;
+  height: 1em;        /* reserve space */
+  margin-top: 0.25em;
+  font-size: 0.875rem;
+  color: #e74c3c;
+}
   
 
 #globalSearch {
@@ -466,6 +490,7 @@
   outline: none;
   box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 }
+
 
 /* highlight */
 .highlight {
