@@ -1,3 +1,4 @@
+// assets/js/script.js
 document.addEventListener('DOMContentLoaded', () => {
   // === THEME TOGGLE ===
   const toggle = document.getElementById('theme-toggle');
@@ -19,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoji.classList.add('spin');
       setTimeout(() => {
         flipped = !flipped;
-        memoji.src = flipped ? 'assets/photos/memoji2.png' : 'assets/photos/memoji.png';
+        memoji.src = flipped
+          ? 'assets/photos/memoji2.png'
+          : 'assets/photos/memoji.png';
         memoji.classList.remove('spin');
         spinning = false;
       }, 1000);
@@ -27,17 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // === SEARCH FUNCTIONALITY ===
-  const searchForm = document.getElementById('searchForm');
+  const searchForm  = document.getElementById('searchForm');
   const searchInput = document.getElementById('globalSearch');
-  const matchInfo = document.getElementById('matchInfo');
-  const resetBtn = document.getElementById('resetSearch');
-  let matchIndex = 0;
-  let matches = [];
+  const matchInfo   = document.getElementById('matchInfo');
+  const resetBtn    = document.getElementById('resetSearch');
+  let   matchIndex  = 0;
+  let   matches     = [];
 
   function clearHighlights() {
     document.querySelectorAll('.highlight').forEach(span => {
       const parent = span.parentNode;
-      parent.replaceChild(document.createTextNode(span.textContent), span);
+      parent.replaceChild(
+        document.createTextNode(span.textContent),
+        span
+      );
       parent.normalize();
     });
     matches = [];
@@ -49,9 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!term) return;
 
     const regex = new RegExp(`(${term})`, 'gi');
-    document.querySelectorAll('section, .card-content, h2, h3, p, li').forEach(el => {
+    // only replace inside these text-containing elements
+    document.querySelectorAll('h2, h3, p, li').forEach(el => {
       if (regex.test(el.textContent)) {
-        el.innerHTML = el.innerHTML.replace(regex, '<span class="highlight" aria-label="search match">$1</span>');
+        el.innerHTML = el.textContent.replace(
+          regex,
+          '<span class="highlight" aria-label="search match">$1</span>'
+        );
       }
     });
 
@@ -59,14 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matches.length) {
       matchIndex = 0;
       matches[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      matchInfo.textContent = `${matches.length} match${matches.length > 1 ? 'es' : ''} found`;
+      matchInfo.textContent = 
+        `${matches.length} match${matches.length > 1 ? 'es' : ''} found`;
     } else {
-      matchInfo.textContent = `No results found`;
+      matchInfo.textContent = 'No results found';
     }
   }
 
+  // on load, if ?q=… present, apply
   const params = new URLSearchParams(window.location.search);
-  const term = params.get('q');
+  const term   = params.get('q');
   if (term) {
     searchInput.value = term;
     highlightMatches(term);
@@ -75,14 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
   searchForm.addEventListener('submit', e => {
     e.preventDefault();
     const value = searchInput.value.trim();
-    if (value) {
-      const url = new URL(window.location);
-      url.searchParams.set('q', value);
-      window.history.replaceState({}, '', url);
-      highlightMatches(value);
+    if (!value) {
+      alert(i18n.search_empty);
+      return;
     }
+    const url = new URL(window.location);
+    url.searchParams.set('q', value);
+    window.history.replaceState({}, '', url);
+    highlightMatches(value);
   });
 
+  // cycle to next match on Enter
   searchInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && matches.length > 1) {
       e.preventDefault();
@@ -91,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // reset search
   resetBtn.addEventListener('click', () => {
     searchInput.value = '';
     const url = new URL(window.location);
@@ -98,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.history.replaceState({}, '', url);
     clearHighlights();
   });
+
+  
 
   // === AJAX: Projects ===
   document.querySelectorAll('.btn-view-desc').forEach(btn => {

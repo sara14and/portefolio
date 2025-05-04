@@ -21,6 +21,8 @@ return [
 
   // search bar 
   'search_placeholder' => 'Search projects, skills, experience...',
+  'reset_label' => 'Reset search',
+  'no_results'   => 'No results found.',
 
   // AJAX button labels
   'view_desc'         => 'View description',
@@ -96,10 +98,13 @@ return [
 
   // contact form labels + button
   'form' => [
-    'name'    => 'Name',
-    'email'   => 'Email',
-    'message' => 'Message',
-    'send'    => 'Send',
+  'name'        => 'Name',
+  'email'       => 'Email',
+  'message'     => 'Message',
+  'send'        => 'Send',
+  'name_req'    => 'Name is required.',
+  'email_req'   => 'Valid email is required.',
+  'message_req' => 'Message is required.',
   ],
   'contact_success' => 'Thank you, %s!',
   'contact_error'   => 'Please complete all fields correctly.',

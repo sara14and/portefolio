@@ -1,17 +1,60 @@
 <?php
 // index.php
 
-// load translations
+// 1) load translations
 require_once __DIR__ . '/lang/trad.php';
 
-// load DB & fetch projects
+// 2) load DB & fetch projects
 require_once __DIR__ . '/db/database.php';
-$db       = Database::getInstance();
-$projects = $db
+$db           = Database::getInstance();
+$allProjects  = $db
   ->query("SELECT * FROM projects ORDER BY id ASC")
   ->fetchAll(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
+
+// 3) handle GET “q” to filter by title
+$search    = trim($_GET['q'] ?? '');
+$projects  = $allProjects;
+$noResults = false;
+
+if ($search !== '') {
+  $projects = array_filter($allProjects, function($p) use($search, $lang) {
+    return stripos($p["title_$lang"], $search) !== false;
+  });
+  if (count($projects) === 0) {
+    $noResults = true;
+  }
+}
+
+// 4) prepare contact form defaults
+$name    = $_POST['name']    ?? '';
+$email   = $_POST['email']   ?? '';
+$message = $_POST['message'] ?? '';
+$success = '';
+$error   = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // trim & validate
+  $n = trim($name);
+  $e = trim($email);
+  $m = trim($message);
+
+  if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
+    $success = sprintf(
+      $t['contact_success'] ?? 'Thank you, %s!',
+      htmlspecialchars($n)
+    );
+    // clear fields after success
+    $name = $email = $message = '';
+  } else {
+    $error = $t['contact_error'] ?? 'Please complete all fields correctly.';
+  }
+  
+  $search    = '';
+  $projects  = $allProjects;
+  $noResults = false;
+
+}
+?><!DOCTYPE html>
 <html lang="<?=htmlspecialchars($lang)?>">
 <head>
   <meta charset="UTF-8">
@@ -23,11 +66,13 @@ $projects = $db
   >
   <link rel="stylesheet" href="assets/css/style.css">
   <script>
-    // expose the correct button labels for JS
+    // labels for JS validation
     const i18n = {
+      
       view_desc: "<?= addslashes($t['view_desc']) ?>",
       hide_desc: "<?= addslashes($t['hide_desc']) ?>",
       loading:   "<?= addslashes($t['loading']) ?>"
+    
     };
   </script>
 </head>
@@ -49,180 +94,155 @@ $projects = $db
     </a>
   </div>
 
+  <!-- hero -->
   <section id="hero" class="hero">
-  <div class="hero-wrapper">
-    <div class="hero-left">
-      <h1><?= htmlspecialchars($t['welcome']) ?></h1>
-      <p class="hero-subtitle"><?= htmlspecialchars($t['subtitle']) ?></p>
-      <p><?= htmlspecialchars($t['hello']) ?></p>
-      <a class="btn-cv hero-cv" href="SaraAndariCV2025.pdf" download>
-      <?= htmlspecialchars($t['download_cv']) ?>
-      </a>
+    <div class="hero-wrapper">
+      <div class="hero-left">
+        <h1><?= htmlspecialchars($t['welcome']) ?></h1>
+        <p class="hero-subtitle"><?= htmlspecialchars($t['subtitle']) ?></p>
+        <p><?= htmlspecialchars($t['hello']) ?></p>
+        <a class="btn-cv hero-cv" href="SaraAndariCV2025.pdf" download>
+          <?= htmlspecialchars($t['download_cv']) ?>
+        </a>
+      </div>
+      <div class="hero-right">
+        <img id="memoji" src="assets/photos/memoji.png" alt="<?= htmlspecialchars($t['welcome']) ?>">
+      </div>
     </div>
-    <div class="hero-right">
-  <img id="memoji" src="assets/photos/memoji.png" alt="<?= htmlspecialchars($t['welcome']) ?>">
-</div>
+  </section>
 
-    </div>
-  </div>
-</section>
-
-<!-- global search bar -->
-<section id="search-bar">
-  <form id="searchForm" method="GET" action="" aria-label="Global search">
-    <label for="globalSearch" class="visually-hidden">Search the site</label>
-    <input
-      type="text"
-      name="q"
-      id="globalSearch"
-      value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
-      placeholder="Search for anything..."
-      aria-describedby="matchCount"
-      autocomplete="off"
-    >
-    <button type="button" id="resetSearch" aria-label="Reset search">×</button>
-    <span id="matchCount" class="match-count" aria-live="polite"></span>
-  </form>
-</section>
-
+    <!-- global search bar (GET methd) -->
+    <section id="search-bar">
+    <form id="searchForm" method="GET" action="" aria-label="Global search">
+      <input
+        type="text"
+        name="q"
+        id="globalSearch"
+        value="<?= htmlspecialchars($search) ?>"
+        placeholder="<?= htmlspecialchars($t['search_placeholder'] ?? 'Search…') ?>"
+        aria-describedby="matchInfo"
+        autocomplete="off"
+      >
+      <button
+        type="button"
+        id="resetSearch"
+        aria-label="<?= htmlspecialchars($t['reset_search'] ?? 'Reset search') ?>"
+      >×</button>
+      <span id="matchInfo" class="match-count" aria-live="polite"></span>
+    </form>
+  </section>
 
 
   <!-- projects -->
   <section id="projects">
-  <div class="section-wrapper">
-    <h2><?= htmlspecialchars($t['nav']['projects']) ?></h2>
-    <div class="projects-grid">
-      <?php foreach ($projects as $p): ?>
-        <div class="card" data-id="<?= $p['id'] ?>">
-          <div class="card-content">
-            <h3><?= htmlspecialchars($p["title_$lang"]) ?></h3>
-            <div class="detail" style="display:none"></div>
-            <button class="btn-view-desc" type="button">
-              <?= htmlspecialchars($t['view_desc']) ?>
-            </button>
+    <div class="section-wrapper">
+      <h2><?= htmlspecialchars($t['nav']['projects']) ?></h2>
+      
+      <div class="projects-grid">
+        <?php foreach ($projects as $p): ?>
+          <div class="card" data-id="<?= $p['id'] ?>">
+            <div class="card-content">
+              <h3><?= htmlspecialchars($p["title_$lang"]) ?></h3>
+              <div class="detail" style="display:none"></div>
+              <button class="btn-view-desc" type="button">
+                <?= htmlspecialchars($t['view_desc']) ?>
+              </button>
+              
+            </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
-  </div>
-</section>
-
-
+  </section>
 
   <!-- experience -->
   <section id="experience">
-  <div class="section-wrapper">
-    <h2><?=htmlspecialchars($t['nav']['experience'])?></h2>
-    <div class="projects-grid">
-      <?php foreach($t['experience_data'] as $key => $exp): ?>
-        <div class="card" data-key="<?=htmlspecialchars($key)?>">
-          <div class="card-content">
-            <h3><?=htmlspecialchars($exp['role'])?></h3>
-            <p><?=htmlspecialchars($exp['company'])?></p>
-            <div class="detail" style="display:none"></div>
-            <button class="btn-view-desc-exp" type="button">
-              <?=htmlspecialchars($t['view_desc'])?>
-            </button>
+    <div class="section-wrapper">
+      <h2><?=htmlspecialchars($t['nav']['experience'])?></h2>
+      <div class="projects-grid">
+        <?php foreach($t['experience_data'] as $key => $exp): ?>
+          <div class="card" data-key="<?=htmlspecialchars($key)?>">
+            <div class="card-content">
+              <h3><?=htmlspecialchars($exp['role'])?></h3>
+              <p><?=htmlspecialchars($exp['company'])?></p>
+              <div class="detail" style="display:none"></div>
+              <button class="btn-view-desc-exp" type="button">
+                <?=htmlspecialchars($t['view_desc'])?>
+              </button>
+            </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
   <!-- skills -->
   <section id="skills">
-  <div class="section-wrapper">
-    <h2><?=htmlspecialchars($t['skills'])?></h2>
-    <div class="projects-grid">
-      <?php foreach($t['skills_data'] as $grp): ?>
-        <div class="card">
-          <div class="card-content">
-            <h3><?=htmlspecialchars($grp['label'])?></h3>
-            <ul>
-              <?php foreach($grp['items'] as $it): ?>
-                <li><?=htmlspecialchars($it)?></li>
-              <?php endforeach; ?>
-            </ul>
+    <div class="section-wrapper">
+      <h2><?=htmlspecialchars($t['skills'])?></h2>
+      <div class="projects-grid">
+        <?php foreach($t['skills_data'] as $grp): ?>
+          <div class="card">
+            <div class="card-content">
+              <h3><?=htmlspecialchars($grp['label'])?></h3>
+              <ul>
+                <?php foreach($grp['items'] as $it): ?>
+                  <li><?=htmlspecialchars($it)?></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   </section>
 
- <!-- contact -->
-<section id="contact" class="contact">
-  <div class="section-wrapper contact-wrapper">
-    <h2><?= htmlspecialchars($t['nav']['contact']) ?></h2>
-    <p class="contact-sub"><?= htmlspecialchars($t['contact_message']) ?></p>
+  <!-- contact (post) -->
+  <section id="contact" class="contact">
+    <div class="section-wrapper contact-wrapper">
+      <h2><?= htmlspecialchars($t['nav']['contact']) ?></h2>
+      <p class="contact-sub"><?= htmlspecialchars($t['contact_message']) ?></p>
 
-    <?php
-      // initialize vars
-      $name    = $_POST['name']    ?? '';
-      $email   = $_POST['email']   ?? '';
-      $message = $_POST['message'] ?? '';
-      $success = '';
-      $error   = '';
+      <?php if ($success): ?>
+        <div class="form-message success"><?= $success ?></div>
+      <?php elseif ($error): ?>
+        <div class="form-message error"><?= htmlspecialchars($error) ?></div>
+      <?php endif; ?>
 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // trim & validate
-        $n = trim($name);
-        $e = trim($email);
-        $m = trim($message);
+      <form id="contactForm" action="#contact" method="POST" novalidate>
+        <label>
+          <?= htmlspecialchars($t['form']['name']) ?>
+          <input
+            type="text"
+            name="name"
+            required
+            value="<?= htmlspecialchars($name) ?>"
+          >
+        </label>
 
-        if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
-          $msg = sprintf($t['contact_success'], htmlspecialchars($n));
-          echo '<p class="success">'.$msg.'</p>';
-          echo '<script>document.getElementById("contactForm").reset();</script>';
-        } else {
-          echo '<p class="error">'.htmlspecialchars($t['contact_error']).'</p>';
-        }        
-      }
-    ?>
+        <label>
+          <?= htmlspecialchars($t['form']['email']) ?>
+          <input
+            type="email"
+            name="email"
+            required
+            value="<?= htmlspecialchars($email) ?>"
+          >
+        </label>
 
-    <form
-      id="contactForm"
-      action="#contact"
-      method="POST"
-      novalidate
-    >
-      <label>
-        <?= htmlspecialchars($t['form']['name']) ?>
-        <input
-          type="text"
-          name="name"
-          required
-          value="<?= htmlspecialchars($name) ?>"
-        >
-      </label>
+        <label>
+          <?= htmlspecialchars($t['form']['message']) ?>
+          <textarea name="message" required><?= htmlspecialchars($message) ?></textarea>
+        </label>
 
-      <label>
-        <?= htmlspecialchars($t['form']['email']) ?>
-        <input
-          type="email"
-          name="email"
-          required
-          value="<?= htmlspecialchars($email) ?>"
-        >
-      </label>
+        <button type="submit">
+          <?= htmlspecialchars($t['form']['send']) ?>
+        </button>
+      </form>
+    </div>
+  </section>
 
-      <label>
-        <?= htmlspecialchars($t['form']['message']) ?>
-        <textarea
-          name="message"
-          required
-        ><?= htmlspecialchars($message) ?></textarea>
-      </label>
-
-      <button type="submit">
-        <?= htmlspecialchars($t['form']['send']) ?>
-      </button>
-    </form>
-
-    <?php if ($success): ?>
-      <div class="form-message success"><?= $success ?></div>
-    <?php elseif ($error): ?>
-      <div class="form-message error"><?= $error ?></div>
-    <?php endif; ?>
-
-  </div>
-</section>
+  <?php include __DIR__.'/includes/footer.php'; ?>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -20,6 +20,8 @@ return [
 
   // search bar 
   'search_placeholder' => 'Rechercher projets, compétences, expérience...',
+  'reset_label' => 'Réinitialiser la recherche',
+  'no_results'  => 'Aucun résultat trouvé',
 
   // AJAX button labels
   'view_desc'         => 'Voir la description',
@@ -95,10 +97,13 @@ return [
 
   // contact form
   'form' => [
-    'name'    => 'Nom',
-    'email'   => 'Email',
-    'message' => 'Message',
-    'send'    => 'Envoyer',
+  'name'        => 'Nom',
+  'email'       => 'Email',
+  'message'     => 'Message',
+  'send'        => 'Envoyer',
+  'name_req'    => 'Le nom est requis.',
+  'email_req'   => 'Email invalide.',
+  'message_req' => 'Le message est requis.',
   ],
   'contact_success' => 'Merci, %s !',
   'contact_error'   => 'Veuillez remplir tous les champs correctement.',
