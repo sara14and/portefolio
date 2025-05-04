@@ -10,24 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.setAttribute('aria-label', label);
   });
 
-  // === MEMOJI SWAP ===
-  const memoji = document.getElementById('memoji');
-  if (memoji) {
-    let flipped = false, spinning = false;
-    memoji.addEventListener('click', () => {
-      if (spinning) return;
-      spinning = true;
-      memoji.classList.add('spin');
-      setTimeout(() => {
-        flipped = !flipped;
-        memoji.src = flipped
-          ? 'assets/photos/memoji2.png'
-          : 'assets/photos/memoji.png';
-        memoji.classList.remove('spin');
-        spinning = false;
-      }, 1000);
-    });
-  }
 
   // === MOBILE MENU TOGGLE ===
   const menuToggle = document.getElementById('menu-toggle');
@@ -38,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  
 
   // === SEARCH FUNCTIONALITY ===
   const searchForm  = document.getElementById('searchForm');

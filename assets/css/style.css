@@ -9,11 +9,13 @@
   
   /* dark overrides */
   body.dark {
-    --color-bg:     #1A1A23;
-    --color-base:   #F4F4F9;
-    --color-accent: #9C77F5;
-    --color-light:  #2A2A34;
-  }
+    --color-bg:     #121212;   /* almost-black background */
+    --color-base:   #E0E0E0;   /* soft light text */
+    --color-accent: #6F63D1;  /* gentle lilac highlight */
+    --color-btn-light: #9085e9;
+    --color-light:  #1e1529;   /* slightly lighter panels */
+  }  
+  
   
   /* making sure visited links dont turn purple */
   .lang-switch a:visited,
@@ -260,14 +262,15 @@
     }
   }
   
-  @keyframes spin {
-    0%   { transform: rotateY(0deg); }
-    50%  { transform: rotateY(180deg); }
-    100% { transform: rotateY(360deg); }
+  @keyframes float {
+    0%, 100%   { transform: translateY(0); }
+    50%        { transform: translateY(-10px); }
   }
   
-  #memoji.spin {
-    animation: spin 2s ease;
+  #emojiFloat {
+    animation: float 2.5s ease-in-out infinite;
+    pointer-events: none;
+    cursor: default; 
   }
   
   
@@ -427,6 +430,7 @@
     border-radius: 4px;
     font-size: 1rem;  
     transition: background var(--transition);
+    cursor: pointer;
   }
   .contact button:hover {
     background: var(--color-btn-light);

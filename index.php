@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </a>
       </div>
       <div class="hero-right">
-        <img id="memoji" src="assets/photos/memoji.png" alt="<?= htmlspecialchars($t['welcome']) ?>">
+        <img id="emojiFloat" src="assets/photos/memoji2.png" alt="<?= htmlspecialchars($t['welcome']) ?>">
       </div>
     </div>
   </section>
