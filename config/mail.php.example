@@ -1,0 +1,11 @@
+<?php
+return [
+    'host'     => 'smtp.example.com',
+    'port'     => 587,
+    'username' => 'user@example.com',
+    'password' => 'your-app-password',
+    'from'     => 'portfolio@example.com',
+    'from_name' => 'Portfolio Contact',
+    'to'       => 'owner@example.com',
+    'encryption' => 'starttls' // options: starttls, smtps, none
+];

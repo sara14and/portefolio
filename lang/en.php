@@ -112,4 +112,7 @@ return [
   ],
   'contact_success' => 'Thank you, %s!',
   'contact_error'   => 'Please complete all fields correctly.',
+  'contact_mail_sent' => 'Your message is on its way to my inbox.',
+  'contact_mail_failed' => 'Message saved, but email notification failed.',
+  'contact_mail_disabled' => 'Message saved; email alerts are not configured yet.',
 ];

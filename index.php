@@ -4,6 +4,32 @@
 // load translations
 require_once __DIR__ . '/lang/trad.php';
 
+// detect mailer setup
+$autoloadPath   = __DIR__ . '/vendor/autoload.php';
+$mailConfigPath = __DIR__ . '/config/mail.php';
+$mailEnabled    = false;
+$mailConfig     = [];
+$mailEncryption = 'starttls';
+
+if (is_readable($autoloadPath) && is_readable($mailConfigPath)) {
+  require_once $autoloadPath;
+  $mailConfig = require $mailConfigPath;
+
+  $requiredKeys = ['host', 'port', 'username', 'password', 'from', 'to'];
+  $mailEnabled  = true;
+
+  foreach ($requiredKeys as $key) {
+    if (!isset($mailConfig[$key]) || $mailConfig[$key] === '') {
+      $mailEnabled = false;
+      break;
+    }
+  }
+
+  if ($mailEnabled) {
+    $mailEncryption = strtolower((string) ($mailConfig['encryption'] ?? 'starttls'));
+  }
+}
+
 // load db and fetch projects
 require_once __DIR__ . '/db/database.php';
 $db           = Database::getInstance();
@@ -40,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($n && filter_var($e, FILTER_VALIDATE_EMAIL) && $m) {
     // show the success message
-    $success = sprintf(
+    $successMessage = sprintf(
       $t['contact_success'] ?? 'Thank you, %s!',
       htmlspecialchars($n)
     );
@@ -51,11 +77,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     $stmt->execute([$n, $e, $m]);
 
+    $successExtras = [];
+
+    if ($mailEnabled) {
+      try {
+        $mailer = new \PHPMailer\PHPMailer\PHPMailer(true);
+        $mailer->isSMTP();
+        $mailer->Host       = $mailConfig['host'];
+        $mailer->SMTPAuth   = true;
+        $mailer->Username   = $mailConfig['username'];
+        $mailer->Password   = $mailConfig['password'];
+        switch ($mailEncryption) {
+          case 'none':
+          case 'plain':
+          case 'false':
+            $mailer->SMTPAutoTLS = false;
+            $mailer->SMTPSecure  = false;
+            break;
+          case 'smtps':
+          case 'ssl':
+          case 'implicit':
+          case 'implicit_tls':
+            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+            break;
+          case 'starttls':
+          case 'tls':
+          default:
+            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            break;
+        }
+
+        $mailer->Port = (int) $mailConfig['port'];
+
+        $fromAddress = $mailConfig['from'];
+        $fromName    = $mailConfig['from_name'] ?? 'Portfolio Contact';
+        $safeName    = preg_replace("/[\r\n]+/", ' ', $n);
+        $safeEmail   = filter_var($e, FILTER_SANITIZE_EMAIL);
+        $mailer->setFrom($fromAddress, $fromName);
+        $mailer->addReplyTo($safeEmail, $safeName);
+        $mailer->addAddress($mailConfig['to']);
+        $mailer->Subject = sprintf('Portfolio message from %s', $safeName);
+        $mailer->Body    = sprintf(
+          "Name: %s\nEmail: %s\n\n%s",
+          $safeName,
+          $safeEmail,
+          str_replace(["\r\n", "\r"], "\n", $m)
+        );
+
+        $mailer->send();
+
+        if (!empty($t['contact_mail_sent'])) {
+          $successExtras[] = htmlspecialchars($t['contact_mail_sent']);
+        }
+      } catch (\Throwable $mailException) {
+        error_log('Contact form mail failed: ' . $mailException->getMessage());
+        if (!empty($t['contact_mail_failed'])) {
+          $successExtras[] = htmlspecialchars($t['contact_mail_failed']);
+        }
+      }
+    } elseif (!empty($t['contact_mail_disabled'])) {
+      $successExtras[] = htmlspecialchars($t['contact_mail_disabled']);
+    }
+
+    if ($successExtras) {
+      $successMessage .= ' ' . implode(' ', $successExtras);
+    }
+
+    $success = $successMessage;
+
     // clear form fields
     $name = $email = $message = '';
-} else {
+  } else {
     $error = $t['contact_error'] ?? 'Please complete all fields correctly.';
-}
+  }
 
   
   $search    = '';

@@ -1,0 +1,7 @@
+{
+    "name": "sara/portefolio",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

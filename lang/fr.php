@@ -111,4 +111,7 @@ return [
   ],
   'contact_success' => 'Merci, %s!',
   'contact_error'   => 'Veuillez remplir tous les champs correctement.',
+  'contact_mail_sent' => 'Votre message arrive dans ma boîte de réception.',
+  'contact_mail_failed' => 'Message enregistré, mais l’envoi de l’email a échoué.',
+  'contact_mail_disabled' => 'Message enregistré ; les alertes email ne sont pas encore configurées.',
 ];
