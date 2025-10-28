@@ -33,11 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const storedTheme = readStoredTheme();
-    const prefersDark = window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
       ? storedTheme
-      : (prefersDark ? 'dark' : 'light');
+      : 'light';
     applyTheme(initialTheme);
 
     toggle.addEventListener('click', () => {
