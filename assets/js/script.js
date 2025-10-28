@@ -2,13 +2,52 @@
 document.addEventListener('DOMContentLoaded', () => {
   // theme toggle
   const toggle = document.getElementById('theme-toggle');
-  toggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    const label = document.body.classList.contains('dark')
-      ? i18n.theme_light_label
-      : i18n.theme_dark_label;
-    toggle.setAttribute('aria-label', label);
-  });
+  const storageKey = 'portfolio-theme';
+
+  if (toggle) {
+    const setAriaLabel = isDark => {
+      const label = isDark ? i18n.theme_light_label : i18n.theme_dark_label;
+      toggle.setAttribute('aria-label', label);
+    };
+
+    const applyTheme = theme => {
+      const isDark = theme === 'dark';
+      document.body.classList.toggle('dark', isDark);
+      setAriaLabel(isDark);
+    };
+
+    const readStoredTheme = () => {
+      try {
+        return localStorage.getItem(storageKey);
+      } catch (err) {
+        return null;
+      }
+    };
+
+    const writeStoredTheme = theme => {
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch (err) {
+        // ignore storage failures (private mode, etc.)
+      }
+    };
+
+    const storedTheme = readStoredTheme();
+    const prefersDark = window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
+      ? storedTheme
+      : (prefersDark ? 'dark' : 'light');
+    applyTheme(initialTheme);
+
+    toggle.addEventListener('click', () => {
+      const nextTheme = document.body.classList.contains('dark')
+        ? 'light'
+        : 'dark';
+      applyTheme(nextTheme);
+      writeStoredTheme(nextTheme);
+    });
+  }
 
 
   // mobile menu toggle
@@ -139,6 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       btn.disabled = true;
       btn.textContent = i18n.loading;
+      detail.innerHTML = `
+        <div class="loading-indicator" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="loading-text">${i18n.loading}</span>
+        </div>
+      `;
+      detail.style.display = 'block';
       try {
         const res = await fetch(`api/project_detail.php?id=${id}`);
         const json = await res.json();
@@ -168,6 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       btn.disabled = true;
       btn.textContent = i18n.loading;
+      detail.innerHTML = `
+        <div class="loading-indicator" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="loading-text">${i18n.loading}</span>
+        </div>
+      `;
+      detail.style.display = 'block';
       try {
         const res = await fetch(`api/experience_detail.php?key=${encodeURIComponent(key)}`);
         const json = await res.json();

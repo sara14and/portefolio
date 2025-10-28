@@ -198,6 +198,33 @@
   #experience  { animation-delay: 0.6s; }
   #skills      { animation-delay: 0.8s; }
   #contact     { animation-delay: 1s; }
+
+  .loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    color: var(--color-base);
+    font-weight: 500;
+  }
+
+  .loading-indicator .spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  body.dark .loading-indicator .spinner {
+    border-color: rgba(255, 255, 255, 0.25);
+    border-top-color: var(--color-accent);
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
   
 
   /* alternating background */
