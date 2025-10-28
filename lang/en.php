@@ -43,27 +43,25 @@ return [
       'role'    => 'Technical Support Intern',
       'company' => 'Atlas Copco Compressors Canada',
       'points'  => [
-        'Resolved Level 1 technical support tickets, including special parts and service list requests.',
-        'Collaborated with service teams on warranty claims and ECB follow‑ups.',
-        'Managed and maintained documentation in internal SharePoint channels.',
+        'Resolved technical support tickets, including special parts and service list requests.',
+        'Collaborated with service teams on warranty claims and Engineering Change Bulletin follow-ups.',
+        'Managed documentation across internal SharePoint channels.',
       ],
     ],
     'asda' => [
       'role'    => 'R&D Intern',
-      'company' => 'Applied Systems Design & Analysis (ASDA)',
+      'company' => 'Applied Systems Design & Analysis (ASDA) Inc.',
       'points'  => [
-        'Performed pre‑feasibility analysis and design of the Energy Calculator using Excel, HTML, CODERS DB, and SPINE.',
-        'Conducted in‑depth research and formulated architectural proposals.',
-        'Assisted in data collection efforts for the energy model.',
+        'Conducted architectural research and proposed improvements for the energy model tool.',
+        'Contributed to the design of an Energy Calculator using Excel, HTML, and CODERS/SPINE databases.',
       ],
     ],
     'factory' => [
       'role'    => 'General Manager & Communications Lead',
-      'company' => 'The Factory - Hardware Design Lab',
+      'company' => 'The Factory - Hardware Design Lab',
       'points'  => [
-        'Coordinated and promoted events such as workshops and hackathons.',
-        'Managed social media and created marketing materials.',
-        'Held weekly office hours to train students on equipment.',
+        'Led workshops and trained peers on lab equipment (soldering, PCB milling, 3D printing).',
+        'Organized and promoted hackathons and technical events while managing social media.',
       ],
     ],
   ],
@@ -73,27 +71,23 @@ return [
   'skills_data' => [
     [
       'label' => 'Programming Languages',
-      'items' => ['Python', 'Java', 'C', 'Unix/Shell scripting', 'HTML', 'CSS', 'ARM Assembly'],
+      'items' => ['Python', 'Java', 'C', 'Unix/Shell scripting', 'HTML', 'CSS', 'ARM Assembly', 'PHP', 'JavaScript'],
     ],
     [
-      'label' => 'IDEs',
-      'items' => ['Visual Studio Code', 'IntelliJ', 'Vim', 'PyCharm', 'Arduino', 'Thonny', 'Eclipse'],
-    ],
-    [
-      'label' => 'Collaboration Tools',
-      'items' => ['GitHub', 'Airtable', 'PostgreSQL'],
+      'label' => 'Frameworks & Tools',
+      'items' => ['Spring Boot', 'PostgreSQL', 'GitHub', 'IntelliJ IDEA', 'VS Code', 'Eclipse', 'PyCharm', 'Vim'],
     ],
     [
       'label' => 'Hardware',
-      'items' => ['Soldering', '3D Printing', 'PCB milling', 'Raspberry Pi'],
+      'items' => ['STM32 (ARM Cortex-M)', 'Arduino', 'Raspberry Pi', 'Soldering', '3D Printing'],
     ],
     [
       'label' => 'Languages',
-      'items' => ['English', 'French', 'Krio', 'Arabic'],
+      'items' => ['French', 'English', 'Krio', 'Arabic'],
     ],
     [
       'label' => 'Soft Skills',
-      'items' => ['Adaptable', 'Social', 'Detail‑oriented', 'Creative', 'Determined', 'Efficient'],
+      'items' => ['Adaptable', 'Collaborative', 'Determined', 'Creative', 'Curious', 'Communicative'],
     ],
   ],
 

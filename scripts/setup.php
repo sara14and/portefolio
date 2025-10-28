@@ -32,25 +32,39 @@ $db->exec("
 // insert entries
 $projects = [
     [
-        "Game Shop Web",
-        "Site Web de Boutique de Jeux",
-        "Co‑built Spring Boot/PostgreSQL web app for video game shop inventory, orders, approvals.",
-        "Développement d’une application Spring Boot/PostgreSQL pour gérer l’inventaire, les commandes et les approbations.",
-        "https://github.com/McGill-ECSE321-Fall2024/project-group-14"
-    ],
-    [
-        "Fire‑Fighting Robot Prototype",
-        "Prototype de Robot Incendie",
-        "Co‑built autonomous firefighting robot prototype using Python, sensors, grid navigation.",
-        "Création d’un prototype de robot autonome de lutte contre les incendies en Python, capteurs et navigation sur grille.",
-        "https://github.com/sjavaheri/SouvlakiSensors"
-    ],
-    [
-        "Arduino Line‑Following Robot",
-        "Robot Suiveur de Ligne Arduino",
-        "Built Arduino line‑following robot using IR sensors, custom chassis, and code for the ForgeMcGill Hackathon.",
-        "Construction d’un robot Arduino suiveur de ligne avec capteurs IR, châssis personnalisé, et code pour le hackathon ForgeMcGill.",
+        "Capstone Benchmark (In Progress)",
+        "Projet de Capstone (en cours)",
+        "Developing an open-source benchmark to evaluate LLMs’ ability to generate code from domain models.",
+        "Développement d’un banc d’essai open source pour évaluer la capacité des LLM à générer du code à partir de modèles métier.",
         ""
+    ],
+    [
+        "Online Game Store Management System",
+        "Système de Gestion de Boutique de Jeux en Ligne",
+        "Built a Spring Boot/PostgreSQL web app for video game shop inventory management and customer orders.",
+        "Création d’une application web Spring Boot/PostgreSQL pour gérer l’inventaire et les commandes d’une boutique de jeux vidéo.",
+        ""
+    ],
+    [
+        "Autonomous Robotics System",
+        "Système Robotique Autonome",
+        "Designed and programmed an autonomous fire-detecting robot in Python using sensors and grid navigation.",
+        "Conception et programmation d’un robot autonome de détection d’incendie en Python avec capteurs et navigation sur grille.",
+        ""
+    ],
+    [
+        "AI Model Aggregation for Improved Learning",
+        "Agrégation de Modèles IA pour un Apprentissage Amélioré",
+        "Implemented decision trees and bagging ensembles in Python to improve generalization across models.",
+        "Mise en œuvre d’arbres de décision et d’ensembles bagging en Python pour améliorer la généralisation des modèles.",
+        ""
+    ],
+    [
+        "Portfolio Website",
+        "Site Portfolio",
+        "Responsive portfolio built with PHP, HTML, CSS, and JavaScript.",
+        "Portfolio responsive développé avec PHP, HTML, CSS et JavaScript.",
+        "https://portefolio-yz5d.onrender.com/"
     ]
 ];
 

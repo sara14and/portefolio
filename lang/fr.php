@@ -42,27 +42,25 @@ return [
       'role'    => 'Stagiaire support technique',
       'company' => 'Atlas Copco Compressors Canada',
       'points'  => [
-        'Résolution de tickets de support technique de niveau 1, y compris demandes de pièces spéciales et listes de service.',
-        'Collaboration avec les équipes de service pour les réclamations sous garantie et suivi des bulletins de modification d’ingénierie (ECB).',
-        'Gestion et mise à jour de la documentation dans SharePoint.',
+        'Résolution de tickets de support technique, y compris demandes de pièces spéciales et listes de service.',
+        'Collaboration avec les équipes de service sur les réclamations de garantie et le suivi des bulletins de modification d’ingénierie.',
+        'Gestion de la documentation sur les canaux SharePoint internes.',
       ],
     ],
     'asda' => [
       'role'    => 'Stagiaire R&D',
       'company' => 'Applied Systems Design & Analysis (ASDA) Inc.',
       'points'  => [
-        'Analyse de pré‑faisabilité et conception de l’Energy Calculator via Excel, HTML, CODERS DB et SPINE.',
-        'Recherche approfondie et propositions d’architecture pour l’outil.',
-        'Assistance à la collecte et à l’analyse des données pour le modèle énergétique.',
+        'Recherche architecturale et propositions d’améliorations pour l’outil de modélisation énergétique.',
+        'Contribution à la conception d’un calculateur énergétique avec Excel, HTML et les bases CODERS/SPINE.',
       ],
     ],
     'factory' => [
       'role'    => 'Directrice générale & Responsable communication',
-      'company' => 'The Factory - Hardware Design Lab',
+      'company' => 'The Factory - Hardware Design Lab',
       'points'  => [
-        'Organisation et promotion d’ateliers et de hackathons.',
-        'Gestion des réseaux sociaux et création de supports marketing.',
-        'Permanences hebdomadaires pour former les étudiants à l’équipement.',
+        'Animation d’ateliers et formation des pairs sur l’équipement du laboratoire (soudure, fraisage PCB, impression 3D).',
+        'Organisation et promotion d’hackathons et d’événements techniques, gestion des réseaux sociaux.',
       ],
     ],
   ],
@@ -72,27 +70,23 @@ return [
   'skills_data' => [
     [
       'label' => 'Langages de programmation',
-      'items' => ['Python', 'Java', 'C', 'Unix/Shell scripting', 'HTML', 'CSS', 'ARM Assembly'],
+      'items' => ['Python', 'Java', 'C', 'Scripts Unix/Shell', 'HTML', 'CSS', 'ARM Assembly', 'PHP', 'JavaScript'],
     ],
     [
-      'label' => 'Environnements de développement',
-      'items' => ['Visual Studio Code', 'IntelliJ', 'Vim', 'PyCharm', 'Arduino', 'Thonny', 'Eclipse'],
-    ],
-    [
-      'label' => 'Outils collaboratifs',
-      'items' => ['GitHub', 'Airtable', 'PostgreSQL'],
+      'label' => 'Frameworks & Outils',
+      'items' => ['Spring Boot', 'PostgreSQL', 'GitHub', 'IntelliJ IDEA', 'VS Code', 'Eclipse', 'PyCharm', 'Vim'],
     ],
     [
       'label' => 'Matériel',
-      'items' => ['Soudure', 'Impression 3D', 'Fraisage de PCB', 'Raspberry Pi'],
+      'items' => ['STM32 (ARM Cortex-M)', 'Arduino', 'Raspberry Pi', 'Soudure', 'Impression 3D'],
     ],
     [
       'label' => 'Langues parlées',
-      'items' => ['Anglais', 'Français', 'Krio', 'Arabe'],
+      'items' => ['Français', 'Anglais', 'Krio', 'Arabe'],
     ],
     [
       'label' => 'Compétences non techniques',
-      'items' => ['Adaptabilité', 'Esprit d’équipe', 'Souci du détail', 'Créativité', 'Détermination', 'Efficacité'],
+      'items' => ['Adaptable', 'Collaborative', 'Déterminée', 'Créative', 'Curieuse', 'Communicative'],
     ],
   ],
 
